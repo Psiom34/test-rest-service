@@ -2,7 +2,7 @@ package com.example.testrestservice.controller;
 
 import com.example.testrestservice.model.Request;
 import com.example.testrestservice.model.Response;
-
+import com.example.testrestservice.service.ModifyRequestService;
 import com.example.testrestservice.service.MyModifyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class MyController {
 
     private final MyModifyService myModifyService;
+    private final ModifyRequestService modifyRequestService;
 
     @Autowired
-    public MyController(@Qualifier("ModifyErrorMessage") MyModifyService myModifyService){
+    public MyController(@Qualifier("ModifySystemTime") MyModifyService myModifyService,
+                        ModifyRequestService modifyRequestService){
         this.myModifyService = myModifyService;
+        this.modifyRequestService = modifyRequestService;
     }
 
 
@@ -38,6 +41,8 @@ public class MyController {
                 .errorCode("")
                 .errorMessage("")
                 .build();
+
+        modifyRequestService.modifyRq(request);
 
         Response responseAfterModify = myModifyService.modify(response);
         log.info("Исходящий response : " + String.valueOf(response));
