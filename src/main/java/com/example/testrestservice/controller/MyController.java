@@ -40,9 +40,9 @@ public class MyController {
                 .build();
 
         Response responseAfterModify = myModifyService.modify(response);
-        log.info("Исходящий response : " + String.valueOf(responseAfterModify));
+        log.info("Исходящий response : " + String.valueOf(response));
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(responseAfterModify, HttpStatus.OK);
 
 
     }
